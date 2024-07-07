@@ -1,0 +1,35 @@
+name: Deploy Laravel Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        composer install --no-dev --optimize-autoloader
+
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.2.0
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./
+        server-dir: /public_html/rexapp.wandggroup.com
+        exclude:
+          - .git*
+          - node_modules/
+          - vendor/
+          - storage/logs/*.log
+          - storage/framework/cache/*
+          - storage/framework/sessions/*
+          - storage/framework/views/*
