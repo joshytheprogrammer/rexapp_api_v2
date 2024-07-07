@@ -23,13 +23,13 @@ jobs:
         server: ${{ secrets.FTP_HOST }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./
-        server-dir: /public_html/rexapp.wandggroup.com
-        exclude:
-          - .git*
-          - node_modules/
-          - vendor/
-          - storage/logs/*.log
-          - storage/framework/cache/*
-          - storage/framework/sessions/*
-          - storage/framework/views/*
+        local-dir: ./ # Adjust this to your local Laravel project directory
+        server-dir: /public_html/ # Adjust this to your target directory on the server
+        exclude: |
+          .git*
+          node_modules/
+          vendor/
+          storage/logs/*.log
+          storage/framework/cache/*
+          storage/framework/sessions/*
+          storage/framework/views/*
